@@ -52,7 +52,6 @@ exports.login = async (req, res) => {
         const {email, password} = req.body
 
         db.query('select * from users where email = ?', [email], async (error, results)=>{
-            console.log(results);
             if(!results || !(await bcrypt.compare(password, results[0].password) )){
                 res.status(401).render('login', {
                     error: 'Email or password incorrect',
@@ -63,7 +62,6 @@ exports.login = async (req, res) => {
                 const token = jwt.sign({id: id}, process.env.JWT_SECRET, {
                     expiresIn: process.env.JSW_EXPIERS_IN
                 });
-                console.log("the token for"+id+"id"+token)
 
                 const cookieOptions = {
                     expires: new Date(
@@ -73,7 +71,7 @@ exports.login = async (req, res) => {
                 }
 
                 res.cookie('token', token, cookieOptions);
-                res.status(200).redirect('/');
+                res.redirect('/home');
             }
         });
 
@@ -82,3 +80,5 @@ exports.login = async (req, res) => {
     }
     
 }
+
+        
