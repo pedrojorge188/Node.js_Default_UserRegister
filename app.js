@@ -5,7 +5,7 @@ const dotenv = require('dotenv');
 
 dotenv.config({path: './.env'});
 
-const app = express();
+const app = express(); 
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
