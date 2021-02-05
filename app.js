@@ -2,6 +2,7 @@ const express = require('express');
 const mysql = require('mysql');
 const path = require('path');
 const dotenv = require('dotenv');
+const cookieparser = require('cookie-parser');
 
 dotenv.config({path: './.env'});
 
@@ -9,6 +10,7 @@ const app = express();
 
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
+app.use(cookieparser());
 
 //DB :: CONNECT ......
 const db = mysql.createConnection({
